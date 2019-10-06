@@ -19,7 +19,7 @@ namespace _18023892Brink_GADE6112_Task1
 
         //constructor that receives parameteres for all the above class variables (except maxhealth)
         //setting the protected ints that were declared to the parameters of this ResourceBuilding method
-        public ResourceBuilding(int xPos, int yPos, int health, int team, string symbol, string name) : base(xPos, yPos, 200, team, "🏭", "Resource Factory")
+        public ResourceBuilding(int xPos, int yPos, int health, int team, string symbol, string name, int resremaining, int maxHP) : base(xPos, yPos, 200, team, "🏭", "Resource Factory")
         {
             //this. to refer to the instance of the variable in this class
             this.xPos = xPos;
@@ -69,7 +69,7 @@ namespace _18023892Brink_GADE6112_Task1
             FileStream savefile = new FileStream(Environment.CurrentDirectory + "/ResourceBuildingSave.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(savefile);
 
-            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + maxHP + "," + resRemaining);
+            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + resRemaining);
             Console.WriteLine("Saved!");
             writer.Close();
             savefile.Close();

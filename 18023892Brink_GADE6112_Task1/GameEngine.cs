@@ -194,9 +194,17 @@ namespace _18023892Brink_GADE6112_Task1
             this.UpdateUnitArea();
         }
 
+        //calls the save method from map so we can call it in the form
         public void Save()
         {
             battlearea.Save();
+        }
+
+        //calls the load method from map so we can call it in the form
+        public void Load()
+        {
+            battlearea.Load();
+            UpdateUnitArea();
         }
     }
 }

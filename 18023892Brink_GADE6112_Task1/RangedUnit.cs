@@ -11,7 +11,7 @@ namespace _18023892Brink_GADE6112_Task1
     {
         //using a base constructor to access Unit's variables (properties must be accessed from RangedUnit which is why base is used)
         //health, speed, attackrange and symbol changed to fit the RangedUnit
-        public RangedUnit(int xPos, int yPos, int health, int speed, int attack, int attackRange, int team, string symbol, bool isAttack, string name) : base(xPos, yPos, 100, 1, attack, 4, team, "🐎", isAttack, "Archer")
+        public RangedUnit(int xPos, int yPos, int health, int speed, int attack, int attackRange, int team, string symbol, bool isAttack, string name, int maxHP) : base(xPos, yPos, 100, 1, attack, 4, team, "🐎", isAttack, "Archer")
         {
             //this. to refer to the instance of the variable in this class
             this.xPos = xPos;
@@ -113,7 +113,7 @@ namespace _18023892Brink_GADE6112_Task1
             FileStream savefile = new FileStream(Environment.CurrentDirectory + "/RangedUnitSave.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(savefile);
 
-            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + maxHP + "," + Speed);
+            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + Attack);
             Console.WriteLine("Saved!");
             writer.Close();
             savefile.Close();

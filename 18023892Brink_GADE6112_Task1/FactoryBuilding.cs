@@ -19,7 +19,7 @@ namespace _18023892Brink_GADE6112_Task1
 
         //constructor that receives parameteres for all the above class variables (except maxhealth)
         //setting the protected ints that were declared to the parameters of this ResourceBuilding method
-        public FactoryBuilding(int xPos, int yPos, int health, int team, string symbol, string name, int unitType) : base(xPos, yPos, 200, team, "🏘️", "Unit Factory")
+        public FactoryBuilding(int xPos, int yPos, int health, int team, string symbol, string name, int unitType, int maxHP) : base(xPos, yPos, 200, team, "🏘️", "Unit Factory")
         {
             //this. to refer to the instance of the variable in this class
             this.xPos = xPos;
@@ -60,9 +60,9 @@ namespace _18023892Brink_GADE6112_Task1
             //switch to determine which unit type will spawn (using rnd)
             switch (unitType)
                 {
-                    default: return new MeleeUnit(newX, newY, 120, 1, tempAttack, 1, team, "💂", false, "Soldier"); break;
-                    case 0: return new MeleeUnit(newX, newY, 120, 1, tempAttack, 1, team, "💂", false, "Soldier"); break;
-                    case 1: return new RangedUnit(newX, newY, 100, 1, tempAttack, 4, team, "🐎", false, "Archer"); break;
+                    default: return new MeleeUnit(newX, newY, 120, 1, tempAttack, 1, team, "💂", false, "Soldier",120); break;
+                    case 0: return new MeleeUnit(newX, newY, 120, 1, tempAttack, 1, team, "💂", false, "Soldier", 120); break;
+                    case 1: return new RangedUnit(newX, newY, 100, 1, tempAttack, 4, team, "🐎", false, "Archer", 100); break;
                 }
         }
         public override void Save()
@@ -71,7 +71,7 @@ namespace _18023892Brink_GADE6112_Task1
             FileStream savefile = new FileStream(Environment.CurrentDirectory + "/FactoryBuildingSave.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(savefile);
 
-            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + maxHP + "," + unitType);
+            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + unitType);
             Console.WriteLine("Saved!");
             writer.Close();
             savefile.Close();

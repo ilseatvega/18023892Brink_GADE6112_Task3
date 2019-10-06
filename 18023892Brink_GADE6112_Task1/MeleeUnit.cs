@@ -14,7 +14,7 @@ namespace _18023892Brink_GADE6112_Task1
 
         //using a base constructor to access Unit's variables (properties must be accessed from MeleeUnit which is why base is used)
         //health, speed, attackrange and symbol changed to fit the MeleeUnit
-        public MeleeUnit(int xPos, int yPos, int health, int speed, int attack, int attackRange, int team, string symbol, bool isAttack, string name) : base(xPos, yPos, 120, 1, attack, 1, team, "💂", isAttack, "Soldier")
+        public MeleeUnit(int xPos, int yPos, int health, int speed, int attack, int attackRange, int team, string symbol, bool isAttack, string name, int maxHP) : base(xPos, yPos, 120, 1, attack, 1, team, "💂", isAttack, "Soldier")
         {
             //this. to refer to the instance of the variable in this class
             this.xPos = xPos;
@@ -117,7 +117,7 @@ namespace _18023892Brink_GADE6112_Task1
             FileStream savefile = new FileStream(Environment.CurrentDirectory + "/MeleeUnitSave.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(savefile);
 
-            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + maxHP + "," + Speed);
+            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + Attack);
             Console.WriteLine("Saved!");
             writer.Close();
             savefile.Close();

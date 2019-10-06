@@ -67,5 +67,11 @@ namespace _18023892Brink_GADE6112_Task1
         {
             gameEng.Save();
         }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            //the load method from game eng which was called from map
+            gameEng.Load();
+        }
     }
 }
