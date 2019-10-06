@@ -98,5 +98,18 @@ namespace _18023892Brink_GADE6112_Task1
         public string Symbol { get { return symbol; } }
 
         public string Name { get { return name; } set { name = value; } }
+
+        ////check for closest building that has resources required
+        //public bool closestResources(Building[] buildings)
+        //{
+        //    //sets it to the highest possible integer
+        //    int closestBuilding = Int32.MaxValue;
+        //    int i = 0;
+
+        //    foreach (Building b in buildings)
+        //    {
+
+        //    }
+        //}
     }
 }

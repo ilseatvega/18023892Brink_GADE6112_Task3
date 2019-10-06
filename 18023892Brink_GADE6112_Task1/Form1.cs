@@ -47,6 +47,7 @@ namespace _18023892Brink_GADE6112_Task1
         {
             gameEng.UpdateUnits();
             gameEng.UpdateBuilding();
+            gameEng.UpdateWizards();
             lblCurrentRound.Text = "";
             lblCurrentRound.Text = Convert.ToString(gameEng.roundCounter += 1);
         }

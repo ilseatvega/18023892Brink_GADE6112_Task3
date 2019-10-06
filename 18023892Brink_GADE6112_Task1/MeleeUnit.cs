@@ -65,7 +65,25 @@ namespace _18023892Brink_GADE6112_Task1
             //health calculated after being attacked
             this.health = this.health - enemy.Attack;
         }
+        public override void BuildingCombat(Building enemy)
+        {
+            enemy.Health = enemy.Health - this.Attack;
+        }
         public override bool WithinRange(Unit enemy)
+        {
+            //using pyth to determine if enemy is within range
+            double distance = Math.Sqrt(Math.Pow(Math.Abs(enemy.X - this.X), 2) + Math.Pow(Math.Abs(enemy.Y - this.Y), 2));
+            //if enemy dist smaller than att range then they are within range (true)
+            if (distance <= attackRange)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool BuildingRange(Building enemy)
         {
             //using pyth to determine if enemy is within range
             double distance = Math.Sqrt(Math.Pow(Math.Abs(enemy.X - this.X), 2) + Math.Pow(Math.Abs(enemy.Y - this.Y), 2));
@@ -102,7 +120,28 @@ namespace _18023892Brink_GADE6112_Task1
             }
             return units[closestUnit];
         }
-
+        public override Building ClosestBuilding(Building[] buildings)
+        {
+            double closestDist = Int32.MaxValue;
+            int closestUnit = 0;
+            //
+            for (int j = 0; j < buildings.Length; j++)
+            {
+                //if units at j team is not equal to units at i team then...
+                if (buildings[j].Team != this.Team)
+                {
+                    //using pyth to find the distance (c = square root(a^2 + b^2))
+                    //math.abs = absolute value 
+                    double distance = Math.Sqrt(Math.Pow(Math.Abs(buildings[j].X - this.X), 2) + (Math.Pow(Math.Abs(buildings[j].Y - this.Y), 2)));
+                    if (distance < closestDist)
+                    {
+                        closestUnit = j;
+                        closestDist = distance;
+                    }
+                }
+            }
+            return buildings[closestUnit];
+        }
         public override void UnitDeath()
         {
             
@@ -110,8 +149,8 @@ namespace _18023892Brink_GADE6112_Task1
         //a string showing all the unit information
         public override string ToString()
         {
-            //showing the unit symbol, position, health points and attack
-            return symbol + " Melee " + name + " " + symbol + "\n" + "\n" + "Unit Position: [" + X + "," + Y + "] " + "\n" + "Unit HP: " + Health + "\n" + "Unit Attack: " + Attack;
+            //showing the unit symbol, position, health points, attack and team
+            return symbol + " Melee " + name + " " + symbol + "\n" + "\n" + "Unit Position: [" + X + "," + Y + "] " + "\n" + "Unit HP: " + Health + "\n" + "Unit Attack: " + Attack + "\n" + "Team: " + Team;
         }
         
         public override void Save()

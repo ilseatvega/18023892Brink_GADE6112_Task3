@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRTSGame));
             this.lblCurrentRound = new System.Windows.Forms.Label();
             this.lblGameRound = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
@@ -140,6 +141,8 @@
             // 
             // pnlUnits
             // 
+            this.pnlUnits.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlUnits.BackgroundImage")));
+            this.pnlUnits.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pnlUnits.Location = new System.Drawing.Point(12, 12);
             this.pnlUnits.Name = "pnlUnits";
             this.pnlUnits.Size = new System.Drawing.Size(800, 800);

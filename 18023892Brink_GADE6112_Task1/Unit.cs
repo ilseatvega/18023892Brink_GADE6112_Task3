@@ -43,6 +43,11 @@ namespace _18023892Brink_GADE6112_Task1
         public abstract void Move(int direction);
         public abstract void Combat(Unit enemy);
         public abstract bool WithinRange(Unit enemy);
+        //declaring new building range and closest building pos to att buildings
+        public abstract bool BuildingRange(Building enemy);
+        public abstract Building ClosestBuilding(Building[] building);
+        public abstract void BuildingCombat(Building enemy);
+
         public abstract Unit ClosestUnitPos(Unit[] units);
         public abstract void UnitDeath();
         public abstract string ToString();

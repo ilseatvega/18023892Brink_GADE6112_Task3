@@ -13,17 +13,22 @@ namespace _18023892Brink_GADE6112_Task1
         public Unit[] units;
         //array to store the seperate buildings
         public Building[] buildings;
+        //array to store the seperate wizards
+        public WizardUnit[] wizard;
         //array to store the battlefield
         public string[,] battlefield = new string[20, 20];
         //random to be used throughout the class
         Random rnd = new Random();
 
-        public Map(int unitNo, int buildingNo)
+        //added the wizard
+        public Map(int unitNo, int buildingNo, int wizNo)
         {
             units = new Unit[unitNo];
             buildings = new Building[buildingNo];
+            wizard = new WizardUnit[wizNo];
             unitGenerate(units.Length);
             buildingGenerate(buildings.Length);
+            wizGenerate(wizard.Length);
         }
 
         //method to randomly generate battlefield with units
@@ -83,6 +88,30 @@ namespace _18023892Brink_GADE6112_Task1
                 }
             }
         }
+
+        //method to randomly generate battlefield with units
+        public void wizGenerate(int wizNo)
+        {
+            for (int i = 0; i < wizNo; i++)
+            {
+                //random position for units (x value)
+                int newX = rnd.Next(0, 20);
+                //random position for units(x value)
+                int newY = rnd.Next(0, 20);
+                //declaring tempattack (attack strength)
+                int tempAttack = 0;
+                //switch to determine which attack strength will be used (using rnd to randomise the case)
+                switch (rnd.Next(0, 4))
+                {
+                    case 0: tempAttack = 10; break;
+                    case 1: tempAttack = 20; break;
+                    case 2: tempAttack = 30; break;
+                    case 3: tempAttack = 40; break;
+                }
+                wizard[i] = new WizardUnit(newX, newY, 80, 1, tempAttack, 1, 2, "🧙", false, "Wizard", 80);
+            }
+        }
+
         //a save method that will be used in game engine to the be used in the form
         public void Save()
         {
@@ -91,6 +120,7 @@ namespace _18023892Brink_GADE6112_Task1
             File.Create(Environment.CurrentDirectory + "/MeleeUnitSave.txt").Close();
             File.Create(Environment.CurrentDirectory + "/ResourceBuildingSave.txt").Close();
             File.Create(Environment.CurrentDirectory + "/FactoryBuildingSave.txt").Close();
+            File.Create(Environment.CurrentDirectory + "/WizardSave.txt").Close();
 
             //for each unit, call the save method from that class
             foreach (Unit u in units)
@@ -101,6 +131,10 @@ namespace _18023892Brink_GADE6112_Task1
             foreach (Building b in buildings)
             {
                 b.Save();
+            }
+            foreach (WizardUnit w in wizard)
+            {
+                w.Save();
             }
         }
         //a method to load the info from the save files
@@ -143,6 +177,23 @@ namespace _18023892Brink_GADE6112_Task1
                 //0= team, 1= x, 2= y, 3= health, 4= attack
                 //adding units to list
                 loadUnits.Add(new MeleeUnit(Int32.Parse(arrAttributes[1]), Int32.Parse(arrAttributes[2]), Int32.Parse(arrAttributes[3]), 1, Int32.Parse(arrAttributes[4]), 1, Int32.Parse(arrAttributes[0]), "💂", false, "Soldier", 120));
+            }
+
+            //WIZARDS
+            //a string array that reads and stores all the text
+            string[] wizArr = File.ReadAllLines(@"WizardSave.txt");
+            //splits the stream to a string array
+            foreach (string line in wizArr)
+            {
+                line.Split('\n');
+            }
+            foreach (string line in wizArr)
+            {
+                //splitting at the comma
+                string[] arrAttributes = line.Split(',');
+                //0= team, 1= x, 2= y, 3= health, 4= attack
+                //adding units to list
+                loadUnits.Add(new WizardUnit(Int32.Parse(arrAttributes[1]), Int32.Parse(arrAttributes[2]), Int32.Parse(arrAttributes[3]), 1, Int32.Parse(arrAttributes[4]), 1, Int32.Parse(arrAttributes[0]), "🧙", false, "Wizard", 80));
             }
 
             //FACTORYBULDING

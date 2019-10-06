@@ -43,7 +43,7 @@ namespace _18023892Brink_GADE6112_Task1
         public int maxHP { get { return health; } }
 
         //didnt use set since the value has been set and wont change (see constructor base at the top)
-        public int Health { get { return health; } }
+        public int Health { get { return health; } set { health = value; } }
 
         public int Team { get { return team; } set { team = value; } }
 

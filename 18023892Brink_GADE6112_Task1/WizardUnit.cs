@@ -7,11 +7,14 @@ using System.IO;
 
 namespace _18023892Brink_GADE6112_Task1
 {
-    class RangedUnit : Unit
+    class WizardUnit : Unit
     {
-        //using a base constructor to access Unit's variables (properties must be accessed from RangedUnit which is why base is used)
-        //health, speed, attackrange and symbol changed to fit the RangedUnit
-        public RangedUnit(int xPos, int yPos, int health, int speed, int attack, int attackRange, int team, string symbol, bool isAttack, string name, int maxHP) : base(xPos, yPos, 100, 1, attack, 4, team, "🐎", isAttack, "Archer")
+        //random to be used throughout the class
+        Random rnd = new Random();
+
+        //using a base constructor to access Unit's variables (properties must be accessed from MeleeUnit which is why base is used)
+        //health, speed, attackrange and symbol changed to fit the MeleeUnit
+        public WizardUnit(int xPos, int yPos, int health, int speed, int attack, int attackRange, int team, string symbol, bool isAttack, string name, int maxHP) : base(xPos, yPos, 80, 1, attack, 2, 3, "🧙", isAttack, "Wizard")
         {
             //this. to refer to the instance of the variable in this class
             this.xPos = xPos;
@@ -56,6 +59,7 @@ namespace _18023892Brink_GADE6112_Task1
                 Y = 20;
             }
         }
+
         public override void Combat(Unit enemy)
         {
             //health calculated after being attacked
@@ -63,7 +67,25 @@ namespace _18023892Brink_GADE6112_Task1
         }
         public override void BuildingCombat(Building enemy)
         {
-            enemy.Health = enemy.Health - this.Attack;
+
+        }
+        //method for wizards aoe attack
+        public void wizAttack(Unit[] units)
+        {
+            //top right of attack bounds
+            int[] top = { X + 1, Y + 1 };
+            //bottom left of att bounds
+            int[] bottom = { X - 1, Y - 1 };
+            foreach (Unit u in units)
+            {
+                if (u.Team != this.Team && u.X != this.X && u.Y != this.Y)
+                {
+                     if (u.X <= top[0] && u.X >= bottom[0] && u.Y <= top[1] && u.Y >= bottom[1])
+                       {
+                            this.Combat(u);
+                       }
+                }
+            }
         }
         public override bool WithinRange(Unit enemy)
         {
@@ -81,23 +103,13 @@ namespace _18023892Brink_GADE6112_Task1
         }
         public override bool BuildingRange(Building enemy)
         {
-            //using pyth to determine if enemy is within range
-            double distance = Math.Sqrt(Math.Pow(Math.Abs(enemy.X - this.X), 2) + Math.Pow(Math.Abs(enemy.Y - this.Y), 2));
-            //if enemy dist smaller than att range then they are within range (true)
-            if (distance <= attackRange)
-            {
-                return true;
-            }
-            else
-            {
                 return false;
-            }
         }
         public override Unit ClosestUnitPos(Unit[] units)
         {
-            double closestDist = Int32.MaxValue;
             int closestUnit = 0;
-            //
+            double closestDist = Int32.MaxValue;
+
             for (int j = 0; j < units.Length; j++)
             {
                 //if units at j team is not equal to units at i team then...
@@ -117,39 +129,23 @@ namespace _18023892Brink_GADE6112_Task1
         }
         public override Building ClosestBuilding(Building[] buildings)
         {
-            double closestDist = Int32.MaxValue;
-            int closestUnit = 0;
-            //
-            for (int j = 0; j < buildings.Length; j++)
-            {
-                //if units at j team is not equal to units at i team then...
-                if (buildings[j].Team != this.Team)
-                {
-                    //using pyth to find the distance (c = square root(a^2 + b^2))
-                    //math.abs = absolute value 
-                    double distance = Math.Sqrt(Math.Pow(Math.Abs(buildings[j].X - this.X), 2) + (Math.Pow(Math.Abs(buildings[j].Y - this.Y), 2)));
-                    if (distance < closestDist)
-                    {
-                        closestUnit = j;
-                        closestDist = distance;
-                    }
-                }
-            }
-            return buildings[closestUnit];
+            return null;
         }
         public override void UnitDeath()
         {
             
         }
+        //a string showing all the unit information
         public override string ToString()
         {
-            //showing the name, unit symbol, position, health points, attack and team
-            return symbol + " Ranged " + name + " " + symbol + "\n" + "\n" + "Unit Position: [" + X + "," + Y + "] " + "\n" + "Unit HP: " + Health + "\n" + "Unit Attack: " + Attack + "\n" + "Team: " + Team;
+            //showing the unit symbol, position, health points and attack (added team so that it's easy to see that they are their own team 3)
+            return symbol + " Wizard " + name + " " + symbol + "\n" + "\n" + "Unit Position: [" + X + "," + Y + "] " + "\n" + "Unit HP: " + Health + "\n" + "Unit Attack: " + Attack + "\n"+ "Team: " +  Team;
         }
+
         public override void Save()
         {
             //saves file to a text file in bin --> debug
-            FileStream savefile = new FileStream(Environment.CurrentDirectory + "/RangedUnitSave.txt", FileMode.Append, FileAccess.Write);
+            FileStream savefile = new FileStream(Environment.CurrentDirectory + "/WizardSave.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(savefile);
             //writing the line of code with all the relevant unit information
             writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + Attack);
@@ -168,6 +164,7 @@ namespace _18023892Brink_GADE6112_Task1
         public int Y { get { return yPos; } set { yPos = value; } }
 
         public int maxHP { get { return health; } }
+
         //gets health and sets it to call death if health is 0
         public int Health { get { return health; } set { if (value < 0) { health = 0; this.UnitDeath(); } else { health = value; } } }
 
