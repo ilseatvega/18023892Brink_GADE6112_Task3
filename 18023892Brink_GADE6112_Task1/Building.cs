@@ -32,6 +32,8 @@ namespace _18023892Brink_GADE6112_Task1
         //the abstract methods that will later be overridden
         public abstract void Destruction();
         public abstract string ToString();
+        //the abstract Save() method
+        public abstract void Save();
 
         //get setters -  wouldnt work unless i put them in the Building class
         public int X { get { return xPos; } set { xPos = value; } }

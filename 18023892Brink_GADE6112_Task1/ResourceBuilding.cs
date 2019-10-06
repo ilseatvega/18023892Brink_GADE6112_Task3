@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace _18023892Brink_GADE6112_Task1
 {
@@ -61,6 +62,17 @@ namespace _18023892Brink_GADE6112_Task1
                     resGen += resRemaining;
                     resRemaining = 0;
                 }
+        }
+        public override void Save()
+        {
+            //saves file to a text file in bin --> debug
+            FileStream savefile = new FileStream(Environment.CurrentDirectory + "/ResourceBuildingSave.txt", FileMode.Append, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(savefile);
+
+            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + maxHP + "," + resRemaining);
+            Console.WriteLine("Saved!");
+            writer.Close();
+            savefile.Close();
         }
 
         //get setters -  wouldnt work unless i put them in the Building class

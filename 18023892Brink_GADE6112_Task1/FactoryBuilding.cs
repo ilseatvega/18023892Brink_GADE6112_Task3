@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace _18023892Brink_GADE6112_Task1
 {
@@ -18,7 +19,7 @@ namespace _18023892Brink_GADE6112_Task1
 
         //constructor that receives parameteres for all the above class variables (except maxhealth)
         //setting the protected ints that were declared to the parameters of this ResourceBuilding method
-        public FactoryBuilding(int xPos, int yPos, int health, int team, string symbol, string name) : base(xPos, yPos, 200, team, "🏘️", "Unit Factory")
+        public FactoryBuilding(int xPos, int yPos, int health, int team, string symbol, string name, int unitType) : base(xPos, yPos, 200, team, "🏘️", "Unit Factory")
         {
             //this. to refer to the instance of the variable in this class
             this.xPos = xPos;
@@ -27,6 +28,7 @@ namespace _18023892Brink_GADE6112_Task1
             this.team = team;
             this.symbol = symbol;
             this.name = name;
+            this.unitType = unitType;
         }
 
         //overriding the abstract methods created in Building
@@ -62,6 +64,17 @@ namespace _18023892Brink_GADE6112_Task1
                     case 0: return new MeleeUnit(newX, newY, 120, 1, tempAttack, 1, team, "💂", false, "Soldier"); break;
                     case 1: return new RangedUnit(newX, newY, 100, 1, tempAttack, 4, team, "🐎", false, "Archer"); break;
                 }
+        }
+        public override void Save()
+        {
+            //saves file to a text file in bin --> debug
+            FileStream savefile = new FileStream(Environment.CurrentDirectory + "/FactoryBuildingSave.txt", FileMode.Append, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(savefile);
+
+            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + maxHP + "," + unitType);
+            Console.WriteLine("Saved!");
+            writer.Close();
+            savefile.Close();
         }
 
         //get accessor for production speed

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace _18023892Brink_GADE6112_Task1
 {
@@ -77,9 +78,32 @@ namespace _18023892Brink_GADE6112_Task1
                 switch (rnd.Next(0, 2))
                 {
                     case 0: buildings[i] = new ResourceBuilding(newX, newY, 200, team, "🏭", "Resource Factory"); break;
-                    case 1: buildings[i] = new FactoryBuilding(newX, newY, 200, team, "🏘️", "Unit Factory"); break;
+                        //rnd next is the random gen of the unittype from the factory building (fixed)
+                    case 1: buildings[i] = new FactoryBuilding(newX, newY, 200, team, "🏘️", "Unit Factory", rnd.Next(0,2)); break;
                 }
             }
         }
+        //a save method that will be used in game engine to the be used in the form
+        public void Save()
+        {
+            //clearing the text file (previous save)
+            File.Create(Environment.CurrentDirectory + "/RangedUnitSave.txt").Close();
+            File.Create(Environment.CurrentDirectory + "/MeleeUnitSave.txt").Close();
+            File.Create(Environment.CurrentDirectory + "/ResourceBuildingSave.txt").Close();
+            File.Create(Environment.CurrentDirectory + "/FactoryBuildingSave.txt").Close();
+
+            //for each unit, call the save method from that class
+            foreach (Unit u in units)
+            {
+                u.Save();
+            }
+            //for each building, call the save method from that class
+            foreach (Building b in buildings)
+            {
+                b.Save();
+            }
+        }
+
+
     }
 }

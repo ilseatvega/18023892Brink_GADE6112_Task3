@@ -193,5 +193,10 @@ namespace _18023892Brink_GADE6112_Task1
             }
             this.UpdateUnitArea();
         }
+
+        public void Save()
+        {
+            battlearea.Save();
+        }
     }
 }

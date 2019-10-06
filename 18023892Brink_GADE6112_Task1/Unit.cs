@@ -40,13 +40,15 @@ namespace _18023892Brink_GADE6112_Task1
         }
         
         //declaring public abstracts
-        //
         public abstract void Move(int direction);
         public abstract void Combat(Unit enemy);
         public abstract bool WithinRange(Unit enemy);
         public abstract Unit ClosestUnitPos(Unit[] units);
         public abstract void UnitDeath();
         public abstract string ToString();
+        //the abstract Save() method
+        public abstract void Save();
+
 
         //putting the accessors in the Unit class so I can get my map update to work
         public int X { get { return xPos; } set { xPos = value; } }

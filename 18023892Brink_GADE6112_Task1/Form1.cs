@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace _18023892Brink_GADE6112_Task1
 {
     public partial class frmRTSGame : Form
     {
         
-        //creating an instance of map in this class
+        //creating an instance of game eng in this class
         GameEngine gameEng;
 
         public frmRTSGame()
@@ -41,6 +42,7 @@ namespace _18023892Brink_GADE6112_Task1
             rtbUnitInfo.Text = unitInfo;
         }
 
+        //updating units and buildings, as well as the round counter
         private void tmrGameEng_Tick(object sender, EventArgs e)
         {
             gameEng.UpdateUnits();
@@ -49,6 +51,7 @@ namespace _18023892Brink_GADE6112_Task1
             lblCurrentRound.Text = Convert.ToString(gameEng.roundCounter += 1);
         }
 
+        //stopping the timer when game is paused
         private void btnPause_Click(object sender, EventArgs e)
         {
             tmrGameEng.Stop();
@@ -57,6 +60,12 @@ namespace _18023892Brink_GADE6112_Task1
         private void lblCurrentRound_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //saving current info to text file (one file for each different building and unit type)
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            gameEng.Save();
         }
     }
 }

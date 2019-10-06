@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace _18023892Brink_GADE6112_Task1
 {
@@ -105,6 +106,17 @@ namespace _18023892Brink_GADE6112_Task1
         {
             //showing the unit symbol, position, health points and attack
             return symbol + " Ranged " + name + " " + symbol + "\n" + "\n" + "Unit Position: [" + X + "," + Y + "] " + "\n" + "Unit HP: " + Health + "\n" + "Unit Attack: " + Attack;
+        }
+        public override void Save()
+        {
+            //saves file to a text file in bin --> debug
+            FileStream savefile = new FileStream(Environment.CurrentDirectory + "/RangedUnitSave.txt", FileMode.Append, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(savefile);
+
+            writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + maxHP + "," + Speed);
+            Console.WriteLine("Saved!");
+            writer.Close();
+            savefile.Close();
         }
 
         //creating the properties for this class using the variables from Unit and using getters / setters
