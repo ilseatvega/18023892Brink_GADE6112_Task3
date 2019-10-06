@@ -62,11 +62,14 @@ namespace _18023892Brink_GADE6112_Task1
 
         public override void Combat(Unit enemy)
         {
+            //health calculated after being attacked
             this.health = this.health - enemy.Attack;
         }
         public override bool WithinRange(Unit enemy)
         {
+            //using pyth to determine if enemy is within range
             double distance = Math.Sqrt(Math.Pow(Math.Abs(enemy.X - this.X), 2) + Math.Pow(Math.Abs(enemy.Y - this.Y), 2));
+            //if enemy dist smaller than att range then they are within range (true)
             if (distance <= attackRange)
             {
                 return true;
@@ -116,9 +119,11 @@ namespace _18023892Brink_GADE6112_Task1
             //saves file to a text file in bin --> debug
             FileStream savefile = new FileStream(Environment.CurrentDirectory + "/MeleeUnitSave.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(savefile);
-
+            //writing the line of code with all the relevant unit information
             writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + Attack);
+            //to check that it works in console
             Console.WriteLine("Saved!");
+            //closing the filestream (savefile) and streamwriter (writer) we created
             writer.Close();
             savefile.Close();
         }

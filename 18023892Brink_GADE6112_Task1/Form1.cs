@@ -65,6 +65,7 @@ namespace _18023892Brink_GADE6112_Task1
         //saving current info to text file (one file for each different building and unit type)
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //save (called from game engine, which called from map which called from the unit and building children classes)
             gameEng.Save();
         }
 

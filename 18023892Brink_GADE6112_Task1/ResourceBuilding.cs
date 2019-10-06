@@ -45,6 +45,7 @@ namespace _18023892Brink_GADE6112_Task1
         }
         public override string ToString()
         {
+            //showing the necessary building info to display
             return symbol + " " + name + " " + symbol + "\n" + "\n" + "Factory Position: [" + X + "," + Y + "] " + "\n" + "Factory HP: " + Health + "\n"
                 + "Resource Type: " + resType + "\n" + "Total Resources Gathered: " + resGen +"\n" + "Resources Per Round: " + resGenRound + "\n"
                 + "Resource Pool: " + resRemaining;
@@ -52,13 +53,17 @@ namespace _18023892Brink_GADE6112_Task1
 
         public void resManagement()
         {
+            //if resources remaining minus the resources that are being generated per round is more than 0
                 if (resRemaining - resGenRound >= 0)
                 {
+                //there is still resources left
+                //calculate new resremaining amount and resgen amount
                     resGen += resGenRound;
                     resRemaining -= resGenRound;
                 }
                 else
                 {
+                //no resources left
                     resGen += resRemaining;
                     resRemaining = 0;
                 }
@@ -68,9 +73,11 @@ namespace _18023892Brink_GADE6112_Task1
             //saves file to a text file in bin --> debug
             FileStream savefile = new FileStream(Environment.CurrentDirectory + "/ResourceBuildingSave.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(savefile);
-
+            //writing the line of code with all the relevant building information
             writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + resRemaining);
+            //to check that it works in console
             Console.WriteLine("Saved!");
+            //closing the filestream (savefile) and streamwriter (writer) we created
             writer.Close();
             savefile.Close();
         }

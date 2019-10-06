@@ -22,7 +22,7 @@ namespace _18023892Brink_GADE6112_Task1
         protected bool isAttack;
         protected string name;
 
-        //constructor that receives parameteres for all the above class variables (except maxhealth)
+        //constructor that receives parameteres for all the above class variables
         //setting the protected ints that were declared to the parameters of this Unit method
         public Unit(int xPos, int yPos, int health, int speed, int attack, int attackRange, int team, string symbol, bool isAttack, string name)
         {

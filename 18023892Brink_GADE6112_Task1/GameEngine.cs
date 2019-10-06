@@ -97,17 +97,22 @@ namespace _18023892Brink_GADE6112_Task1
 
         public void buttonClick(object buttonUnit, EventArgs e)
         {
+            //foreach unit on the map
             foreach (Unit u in battlearea.units)
             {
                 if (((((Button)buttonUnit).Location.X / 40) == u.X) && ((((Button)buttonUnit).Location.Y / 40) == u.Y))
                 {
+                    //display to string info
                     gameForm.displayUnitInfo(u.ToString());
                 }
             }
+            //foreach building on the map
             foreach (Building u in battlearea.buildings)
             {
+                //if button clicked then
                 if (((((Button)buttonUnit).Location.X / 40) == u.X) && ((((Button)buttonUnit).Location.Y / 40) == u.Y))
                 {
+                    //display tostring info
                     gameForm.displayUnitInfo(u.ToString());
                 }
             }
@@ -119,6 +124,8 @@ namespace _18023892Brink_GADE6112_Task1
             {
                 if (u.Health <= 0)
                 {
+                    //death
+                    //make the array a list, remove the unit, make list array again
                     var unitList = battlearea.units.ToList();
                     unitList.Remove(u);
                     battlearea.units = unitList.ToArray();
@@ -175,31 +182,35 @@ namespace _18023892Brink_GADE6112_Task1
 
         public void UpdateBuilding()
         {
+            //foreach building on the map
             foreach (Building b in battlearea.buildings)
             {
+                //if resource building
                 if ((b.GetType()).Equals(typeof(ResourceBuilding)))
                 {
+                    //call resmanagement method
                     ((ResourceBuilding)b).resManagement();
                 }
+                //if factory building
                 else if ((b.GetType()).Equals(typeof(FactoryBuilding)))
                 {
                     if (roundCounter % ((FactoryBuilding)b).Speed == 0)
                     {
+                        //change array to list, spawn units from factory, change back to array
                         var unitList = battlearea.units.ToList();
                         unitList.Add(((FactoryBuilding)b).Spawn());
                         battlearea.units = unitList.ToArray();
                     }
                 }
             }
+            //update panel
             this.UpdateUnitArea();
         }
-
         //calls the save method from map so we can call it in the form
         public void Save()
         {
             battlearea.Save();
         }
-
         //calls the load method from map so we can call it in the form
         public void Load()
         {

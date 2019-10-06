@@ -103,7 +103,6 @@ namespace _18023892Brink_GADE6112_Task1
                 b.Save();
             }
         }
-
         //a method to load the info from the save files
         public void Load()
         {

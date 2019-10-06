@@ -38,6 +38,7 @@ namespace _18023892Brink_GADE6112_Task1
         }
         public override string ToString()
         {
+            //showing the necessary building info to display
             return symbol + " " + name + " " + symbol + "\n" + "\n" + "Factory Position: [" + X + "," + Y + "] " + "\n" + "Factory HP: " + Health + "\n"
                 + "Unit Type: " + unitType + "\n" + "Production Speed: " + speed + "\n";
         }
@@ -70,9 +71,11 @@ namespace _18023892Brink_GADE6112_Task1
             //saves file to a text file in bin --> debug
             FileStream savefile = new FileStream(Environment.CurrentDirectory + "/FactoryBuildingSave.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(savefile);
-
+            //writing the line of code with all the relevant building information
             writer.WriteLine(Team + "," + X + "," + Y + "," + Health + "," + unitType);
+            //to check that it works in console
             Console.WriteLine("Saved!");
+            //closing the filestream (savefile) and streamwriter (writer) we created
             writer.Close();
             savefile.Close();
         }
