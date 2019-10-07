@@ -61,6 +61,7 @@ namespace _18023892Brink_GADE6112_Task1
             //health calculated after being attacked
             this.health = this.health - enemy.Attack;
         }
+        //combat method for attacking buildings
         public override void BuildingCombat(Building enemy)
         {
             enemy.Health = enemy.Health - this.Attack;
@@ -79,6 +80,7 @@ namespace _18023892Brink_GADE6112_Task1
                 return false;
             }
         }
+        //is building within range?
         public override bool BuildingRange(Building enemy)
         {
             //using pyth to determine if enemy is within range
@@ -115,6 +117,7 @@ namespace _18023892Brink_GADE6112_Task1
             }
             return units[closestUnit];
         }
+        //find closest building
         public override Building ClosestBuilding(Building[] buildings)
         {
             double closestDist = Int32.MaxValue;
@@ -122,7 +125,7 @@ namespace _18023892Brink_GADE6112_Task1
             //
             for (int j = 0; j < buildings.Length; j++)
             {
-                //if units at j team is not equal to units at i team then...
+                //if buildings at j team is not equal to buildings at i team then...
                 if (buildings[j].Team != this.Team)
                 {
                     //using pyth to find the distance (c = square root(a^2 + b^2))

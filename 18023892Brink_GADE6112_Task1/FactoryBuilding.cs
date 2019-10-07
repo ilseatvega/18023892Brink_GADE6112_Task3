@@ -13,6 +13,8 @@ namespace _18023892Brink_GADE6112_Task1
         int unitType;
         int speed = 5;
         int[] spawnPoint = new int[2];
+        //cost
+        int cost = 20;
 
         //random to be used throughout the class
         Random rnd = new Random();
@@ -47,7 +49,7 @@ namespace _18023892Brink_GADE6112_Task1
         {
             //random position for units (x value)
             int newX = spawnPoint[0];
-                //random position for units(x value)
+            //random position for units(x value)
             int newY = spawnPoint[1];
             int tempAttack = 0;
             //switch to determine which attack strength will be used (using rnd to randomise the case)
@@ -99,17 +101,40 @@ namespace _18023892Brink_GADE6112_Task1
 
         public string Name { get { return name; } set { name = value; } }
 
-        ////check for closest building that has resources required
-        //public bool closestResources(Building[] buildings)
-        //{
-        //    //sets it to the highest possible integer
-        //    int closestBuilding = Int32.MaxValue;
-        //    int i = 0;
+        //check for closest building that has resources required
+        public bool closestResources(Building[] buildings)
+        {
+            //sets it to the highest possible integer
+            int closestBuilding = Int32.MaxValue;
+            double closestDistance = Int32.MaxValue;
+            int i = 0;
 
-        //    foreach (Building b in buildings)
-        //    {
-
-        //    }
-        //}
+            foreach (Building b in buildings)
+            {//if it is this team and a res building..
+                if (b.Team == this.Team && b.GetType().Equals(typeof(ResourceBuilding)))
+                {
+                    //find its dist using pyth
+                    double distance = Math.Sqrt(Math.Pow(Math.Abs(b.X - this.X),2) + Math.Pow(Math.Abs(b.Y - this.Y), 2));
+                    //if its the closest building and has resouces
+                    if ((distance < closestDistance)&&(((ResourceBuilding)b).minedRes - cost > 0))
+                    {
+                        //this distance is the closest
+                        closestDistance = distance;
+                        closestBuilding = i;
+                    }
+                }
+                //increment
+                i++;
+            }
+            if (closestBuilding != Int32.MaxValue)
+            {//subtract cost of unit for res building
+                ((ResourceBuilding)buildings[closestBuilding]).minedRes -= cost;
+                return true;
+            }//return false - not closest building/doesnt have enough res
+            else
+            {
+                return false;
+            }
+        }
     }
 }

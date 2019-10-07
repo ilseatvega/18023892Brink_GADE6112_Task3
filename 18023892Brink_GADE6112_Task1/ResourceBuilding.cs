@@ -97,7 +97,7 @@ namespace _18023892Brink_GADE6112_Task1
         public string Symbol { get { return symbol; } }
 
         public string Name { get { return name; } set { name = value; } }
-        ////the amount of res tat has been mined
-        //public int minedRes { get { return resGen; } set {if (value < 0) { resGen = 0;} else { resGen = value;} } }
+        //the amount of res that has been mined
+        public int minedRes { get { return resGen; } set { if (value < 0) { resGen = 0; } else { resGen = value; } } }
     }
 }

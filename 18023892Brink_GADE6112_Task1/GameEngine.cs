@@ -265,7 +265,7 @@ namespace _18023892Brink_GADE6112_Task1
                     battlearea.buildings = unitList.ToArray();
                 }
                 //if resource building
-                if ((b.GetType()).Equals(typeof(ResourceBuilding)))
+                else if ((b.GetType()).Equals(typeof(ResourceBuilding)))
                 {
                     //call resmanagement method
                     ((ResourceBuilding)b).resManagement();
@@ -277,8 +277,14 @@ namespace _18023892Brink_GADE6112_Task1
                     {
                         //change array to list, spawn units from factory, change back to array
                         var unitList = battlearea.units.ToList();
-                        unitList.Add(((FactoryBuilding)b).Spawn());
-                        battlearea.units = unitList.ToArray();
+                        //unitList.Add(((FactoryBuilding)b).Spawn());
+                        //battlearea.units = unitList.ToArray();
+
+                        if (((FactoryBuilding)b).closestResources(battlearea.buildings))
+                        {
+                            unitList.Add(((FactoryBuilding)b).Spawn());
+                            battlearea.units = unitList.ToArray();
+                        }
                     }
                 }
             }

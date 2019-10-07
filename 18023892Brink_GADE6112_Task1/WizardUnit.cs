@@ -78,10 +78,12 @@ namespace _18023892Brink_GADE6112_Task1
             int[] bottom = { X - 1, Y - 1 };
             foreach (Unit u in units)
             {
-                if (u.Team != this.Team && u.X != this.X && u.Y != this.Y)
+                if (u.Team != this.Team)
                 {
+                    //restrictions for the wizards att range
                      if (u.X <= top[0] && u.X >= bottom[0] && u.Y <= top[1] && u.Y >= bottom[1])
                        {
+                        //if it is within range, attack
                             this.Combat(u);
                        }
                 }
@@ -101,8 +103,10 @@ namespace _18023892Brink_GADE6112_Task1
                 return false;
             }
         }
+        //building range to determine if buildings are within range
         public override bool BuildingRange(Building enemy)
         {
+            //wizards dont att buildings
                 return false;
         }
         public override Unit ClosestUnitPos(Unit[] units)
@@ -127,6 +131,7 @@ namespace _18023892Brink_GADE6112_Task1
             }
             return units[closestUnit];
         }
+        //find closestbuilding (null for wizards)
         public override Building ClosestBuilding(Building[] buildings)
         {
             return null;
